@@ -1,0 +1,84 @@
+@* 実装しない *@
+
+@model IEnumerable<BlockchainMvcApp.Models.Block>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blockchain Structure</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 900px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-bottom: 30px;
+        }
+        .block-chain-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .block-chain {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .block {
+            padding: 15px 20px;
+            background-color: #007bff;
+            color: white;
+            margin: 5px;
+            border-radius: 5px;
+            position: relative;
+            text-align: center;
+        }
+        .block-chain .block + .block {
+            border-top: 3px solid #007bff;
+        }
+        .node-network {
+            margin-top: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Blockchain Structure</h1>
+        
+
+        <!-- ブロックチェーンの視覚化 -->
+        <div class="block-chain-container">
+            <div class="block-chain">
+                @foreach (var block in Model)
+                {
+                    <div class="block">
+                        <p>Block #@block.Index</p>
+                        <p>@block.Hash.Substring(0, 5)</p> <!-- ハッシュの一部表示 -->
+                    </div>
+                }
+            </div>
+        </div>
+
+        <!-- ノードネットワークの視覚化 -->
+        <div class="node-network">
+            <h4>ネットワーク内のノードとブロック伝播</h4>
+            <p>ノード間でブロックが伝播していく様子を示します。</p>
+            <!-- ノードの構成やブロックの伝播がアニメーションで表示される -->
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+	"name": "C# (.NET)",
+	"image": "mcr.microsoft.com/devcontainers/dotnet:1-9.0-bookworm",
+  
+	// 必要に応じてポートの転送設定を行います
+	"forwardPorts": [5000, 5001],
+  
+	// コンテナ作成後に実行するコマンド（オプション）
+	"postCreateCommand": "dotnet restore",
+  
+	// ユーザー設定が必要な場合は、指定できます。例えば、非rootユーザーを設定する場合：
+	"remoteUser": "vscode",
+  
+	// VSCode固有の設定やカスタマイズを追加できます
+	"customizations": {
+	  "vscode": {
+		"extensions": [
+		  "ms-dotnettools.csharp",
+		  "editorconfig.editorconfig"
+		]
+	  }
+	},
+  
+	// 必要に応じて特定の環境設定を追加
+	"containerEnv": {
+	  "DOTNET_CLI_HOME": "/home/vscode/.dotnet"
+	}
+  }
+  
