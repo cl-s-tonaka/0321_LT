@@ -28,6 +28,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmxvY2svSW50ZWdyaXR5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/workspaces/p2p/0321_LT/BlockchainMvcApp/Views/Block/MerkleTree.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmxvY2svTWVya2xlVHJlZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/workspaces/p2p/0321_LT/BlockchainMvcApp/Views/Block/Structure.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQmxvY2svU3RydWN0dXJlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

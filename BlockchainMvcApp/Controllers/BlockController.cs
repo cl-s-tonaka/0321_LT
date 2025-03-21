@@ -24,6 +24,12 @@ namespace BlockchainMvcApp.Controllers
             return View(_blocks);
         }
 
+        
+        public IActionResult MerkleTree()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult MineNextBlock(int difficulty)
         {
@@ -31,26 +37,6 @@ namespace BlockchainMvcApp.Controllers
             string previousHash = _blocks.Count > 0 ? _blocks[^1].Hash : "0000abc123";
             var newBlock = _miningService.MineBlock(_blocks.Count + 1, previousHash, $"Data {_blocks.Count + 1}", difficulty);
             _blocks.Add(newBlock);
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult TamperBlock(int index)
-        {
-            if (index < _blocks.Count && index > 0)
-            {
-                _blocks[index].TamperData("Hacked Data");
-            }
-            return RedirectToAction("Index");
-        }
-
-        [HttpPost]
-        public IActionResult RecalculateBlock(int index)
-        {
-            if (index < _blocks.Count && index > 0)
-            {
-                _blocks[index].RecalculateHash();
-            }
             return RedirectToAction("Index");
         }
     }

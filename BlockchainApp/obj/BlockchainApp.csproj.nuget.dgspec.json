@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/workspaces/p2p/BlockchainApp/BlockchainApp.csproj": {}
+    "/workspaces/p2p/0321_LT/BlockchainApp/BlockchainApp.csproj": {}
   },
   "projects": {
-    "/workspaces/p2p/BlockchainApp/BlockchainApp.csproj": {
+    "/workspaces/p2p/0321_LT/BlockchainApp/BlockchainApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/workspaces/p2p/BlockchainApp/BlockchainApp.csproj",
+        "projectUniqueName": "/workspaces/p2p/0321_LT/BlockchainApp/BlockchainApp.csproj",
         "projectName": "BlockchainApp",
-        "projectPath": "/workspaces/p2p/BlockchainApp/BlockchainApp.csproj",
+        "projectPath": "/workspaces/p2p/0321_LT/BlockchainApp/BlockchainApp.csproj",
         "packagesPath": "/home/vscode/.dotnet/.nuget/packages/",
-        "outputPath": "/workspaces/p2p/BlockchainApp/obj/",
+        "outputPath": "/workspaces/p2p/0321_LT/BlockchainApp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/vscode/.dotnet/.nuget/NuGet/NuGet.Config"

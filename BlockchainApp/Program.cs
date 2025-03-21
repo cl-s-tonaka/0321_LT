@@ -65,10 +65,10 @@ class Program
 {
     static void Main()
     {
-        int difficulty = 4; // 初期難易度（ゼロ4桁）
-        long targetTime = 5000; // 目標マイニング時間（ms）
+        int difficulty = 1; // 初期難易度（ゼロ4桁）
+        long targetTime = 300; // 目標マイニング時間（ms）
 
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 20; i++)
         {
             Console.WriteLine($"Mining Block {i}... (Difficulty: {difficulty})");
             Block block = new Block(i, "0000abc123", $"Data {i}", difficulty);

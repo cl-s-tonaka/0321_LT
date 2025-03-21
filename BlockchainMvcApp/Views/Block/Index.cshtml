@@ -40,13 +40,32 @@
             position: relative;
         }
         .block {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
-            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
             margin: 5px;
             border-radius: 5px;
-            position: relative;
+            overflow: hidden;
+            border: 2px solid #004080;
+        }
+        .block-top {
+            background-color: #4da0f9;
+            color: white;
+            font-size: 12px;
+            padding: 5px;
+            width: 100%;
+            text-align: center;
+        }
+        .block-bottom {
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
         }
         .block-chain {
             display: flex;
@@ -59,8 +78,10 @@
             background-color: #007bff;
             flex-grow: 1;
         }
-        .block-container .block:not(:last-child) {
-            margin-right: 0;
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 20px;
         }
     </style>
 </head>
@@ -78,6 +99,7 @@
         </form>
 
         <!-- ブロックチェーン一覧 -->
+        <div class="section-title">ブロック情報</div>
         <div class="table-responsive">
             <table class="table table-striped table-bordered">
                 <thead class="table-dark">
@@ -105,17 +127,21 @@
         </div>
 
         <!-- 新しく追加されるブロックの視覚的表示 -->
+        <div class="section-title">イメージ図</div>
         <div class="block-container" id="blockContainer">
-            <div class="block-chain">
+            <div class="block-chain d-flex align-items-center">
+                @{ BlockchainMvcApp.Models.Block prevBlock = null; }
                 @foreach (var block in Model)
                 {
                     <div class="block">
-                        @block.Hash.Substring(0, 5) <!-- ハッシュの最初の5文字を表示 -->
+                        <div class="block-top"> 前: @(prevBlock != null ? prevBlock.Hash.Substring(0, 5) : "-----")</div>
+                        <div class="block-bottom">@block.Hash.Substring(0, 5)</div>
                     </div>
                     @if (!block.Equals(Model.Last()))
                     {
                         <div class="chain-line"></div>
                     }
+                    prevBlock = block;
                 }
             </div>
         </div>

@@ -1,0 +1,116 @@
+@{
+    ViewData["Title"] = "Merkle Tree Demo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">マークルツリー</h2>
+
+    <!-- コントロールパネル -->
+    <div class="d-flex justify-content-center mb-4">
+        <input type="text" id="fromInput" class="form-control me-2" placeholder="From" style="max-width: 120px;" />
+        <input type="text" id="toInput" class="form-control me-2" placeholder="To" style="max-width: 120px;" />
+        <input type="number" id="amountInput" class="form-control me-2" placeholder="Amount" style="max-width: 120px;" />
+        <button class="btn btn-primary me-2" onclick="addTransaction()">追加</button>
+        <button class="btn btn-danger" onclick="clearTransactions()">リセット</button>
+    </div>
+
+    <!-- 取引リスト -->
+    <ul id="transactionList" class="list-group mb-4"></ul>
+
+    <!-- マークルツリー -->
+    <h4 class="text-center">マークルツリーの視覚化</h4>
+    <div id="merkleTree" class="d-flex flex-column align-items-center mt-3 mb-3 position-relative"></div>
+
+    <!-- マークルルート -->
+    <h5 class="text-center">マークルルート: <span id="merkleRoot" class="badge bg-success">-</span></h5>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script>
+        const transactions = [];
+
+        function addTransaction() {
+            const from = document.getElementById("fromInput").value.trim();
+            const to = document.getElementById("toInput").value.trim();
+            const amount = document.getElementById("amountInput").value.trim();
+
+            if (from && to && amount) {
+                const tx = `From:${from},To:${to},Amount:${amount}`;
+                transactions.push(tx);
+                updateTransactionList();
+                updateMerkleTree();
+            }
+        }
+
+        function clearTransactions() {
+            transactions.length = 0;
+            updateTransactionList();
+            updateMerkleTree();
+        }
+
+        function updateTransactionList() {
+            const list = document.getElementById("transactionList");
+            list.innerHTML = transactions.map((tx, index) => `<li class="list-group-item">取引${index + 1}: ${tx}</li>`).join("");
+        }
+
+        function updateMerkleTree() {
+            const treeContainer = document.getElementById("merkleTree");
+            if (transactions.length === 0) {
+                treeContainer.innerHTML = "<p class='text-muted'>トランザクションがありません</p>";
+                document.getElementById("merkleRoot").innerText = "-";
+                return;
+            }
+
+            let leaves = transactions.map((tx, index) => ({
+                label: `取引${index + 1}`,
+                hash: CryptoJS.SHA256(tx).toString()
+            }));
+            let levels = [leaves];
+
+            while (leaves.length > 1) {
+                if (leaves.length % 2 === 1) leaves.push(leaves[leaves.length - 1]);
+
+                const nextLevel = [];
+                for (let i = 0; i < leaves.length; i += 2) {
+                    const combinedHash = CryptoJS.SHA256(leaves[i].hash + leaves[i + 1].hash).toString();
+                    nextLevel.push({ label: ``, hash: combinedHash });
+                }
+
+                levels.unshift(nextLevel);
+                leaves = nextLevel;
+            }
+
+            document.getElementById("merkleRoot").innerText = levels[0][0].hash.slice(0, 8) + "...";
+            visualizeMerkleTree(levels);
+        }
+
+        function visualizeMerkleTree(levels) {
+            const treeContainer = document.getElementById("merkleTree");
+            treeContainer.innerHTML = "";
+
+            levels.forEach((level, levelIndex) => {
+                const levelDiv = document.createElement("div");
+                levelDiv.classList.add("d-flex", "justify-content-center", "align-items-center", "mb-3");
+
+                level.forEach((node, idx) => {
+                    const nodeDiv = document.createElement("div");
+                    nodeDiv.classList.add("card", "border-secondary", "m-2", "text-center");
+                    nodeDiv.style.minWidth = "180px";
+                    nodeDiv.innerHTML = `
+                        <div class="card-body">
+                            <small class="text-muted">${node.label}</small>
+                            <p class="card-text">${node.hash.slice(0, 8)}...</p>
+                        </div>
+                    `;
+                    levelDiv.appendChild(nodeDiv);
+                });
+
+                treeContainer.appendChild(levelDiv);
+            });
+        }
+    </script>
+}

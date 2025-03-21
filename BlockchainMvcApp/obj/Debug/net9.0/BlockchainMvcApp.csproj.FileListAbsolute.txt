@@ -192,3 +192,4 @@
 /workspaces/p2p/0321_LT/BlockchainMvcApp/obj/Debug/net9.0/BlockchainMvcApp.pdb
 /workspaces/p2p/0321_LT/BlockchainMvcApp/obj/Debug/net9.0/BlockchainMvcApp.genruntimeconfig.cache
 /workspaces/p2p/0321_LT/BlockchainMvcApp/obj/Debug/net9.0/ref/BlockchainMvcApp.dll
+/workspaces/p2p/0321_LT/BlockchainMvcApp/obj/Debug/net9.0/BlockchainMvcApp.sourcelink.json
